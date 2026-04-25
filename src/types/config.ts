@@ -21,6 +21,7 @@ export interface LinkGroup {
 export interface SEOConfig {
   title: string;
   description: string;
+  favicon?: string;
   ogImage?: string;
   canonicalURL?: string;
   locale?: string;
