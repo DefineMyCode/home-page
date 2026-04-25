@@ -58,7 +58,7 @@ npm run preview
 
    | 变量名 | 值 |
    |--------|-----|
-   | `NODE_VERSION` | `21` |
+   | `NODE_VERSION` | `22` |
 
 5. 点击 **Save and Deploy**，等待构建完成。
 
@@ -128,7 +128,7 @@ export default defineConfig({
 
 ### 构建失败：Node.js 版本不兼容
 
-在 Cloudflare Pages 环境变量中设置 `NODE_VERSION=21`。
+在 Cloudflare Pages 环境变量中设置 `NODE_VERSION=22`。
 
 ### 资源 404
 
