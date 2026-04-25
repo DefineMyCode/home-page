@@ -1,0 +1,31 @@
+---
+import SEOHead from '../components/SEOHead.astro';
+import '../styles/global.css';
+import { siteConfig } from '../config/site.config';
+
+const locale = siteConfig.seo.locale || 'zh-CN';
+---
+
+<!doctype html>
+<html lang={locale}>
+  <head>
+    <SEOHead seo={siteConfig.seo} personal={siteConfig.personal} />
+
+    <!-- Theme initialization: runs before first paint to prevent flash -->
+    <script is:inline>
+      (function () {
+        const stored = localStorage.getItem('theme');
+        if (stored) {
+          document.documentElement.dataset.theme = stored;
+        } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+          document.documentElement.dataset.theme = 'dark';
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <main class="container">
+      <slot />
+    </main>
+  </body>
+</html>

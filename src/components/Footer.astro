@@ -1,0 +1,52 @@
+---
+import type { FooterConfig } from '../types/config';
+
+interface Props {
+  footer: FooterConfig;
+}
+
+const { footer } = Astro.props;
+---
+
+<footer class="site-footer">
+  <p class="copyright">{footer.copyright}</p>
+  {footer.showPoweredBy && (
+    <p class="powered-by">
+      Built with <a href="https://astro.build" target="_blank" rel="noopener noreferrer">Astro</a>
+      &middot;
+      Hosted on <a href="https://pages.cloudflare.com" target="_blank" rel="noopener noreferrer">Cloudflare Pages</a>
+    </p>
+  )}
+</footer>
+
+<style>
+  .site-footer {
+    margin-top: 3rem;
+    padding: 2rem 0 1rem;
+    text-align: center;
+    border-top: 1px solid var(--color-border);
+  }
+
+  .copyright {
+    font-size: 0.8125rem;
+    color: var(--color-text-muted);
+  }
+
+  .powered-by {
+    font-size: 0.75rem;
+    color: var(--color-text-muted);
+    margin-top: 0.375rem;
+  }
+
+  .powered-by a {
+    color: var(--color-text-secondary);
+    text-decoration: underline;
+    text-decoration-color: transparent;
+    text-underline-offset: 2px;
+    transition: text-decoration-color var(--transition-fast);
+  }
+
+  .powered-by a:hover {
+    text-decoration-color: var(--color-text-secondary);
+  }
+</style>

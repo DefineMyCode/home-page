@@ -1,0 +1,42 @@
+---
+import type { LinkGroup as LinkGroupType } from '../types/config';
+import LinkCard from './LinkCard.astro';
+
+interface Props {
+  group: LinkGroupType;
+  baseIndex: number;
+}
+
+const { group, baseIndex } = Astro.props;
+---
+
+<section class="link-group">
+  {group.label && <h2 class="group-label">{group.label}</h2>}
+  <div class="group-links">
+    {group.links.map((link, i) => (
+      <LinkCard link={link} index={baseIndex + i} />
+    ))}
+  </div>
+</section>
+
+<style>
+  .link-group {
+    margin-bottom: 2rem;
+  }
+
+  .group-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-text-muted);
+    margin-bottom: 0.75rem;
+    padding-left: 0.25rem;
+  }
+
+  .group-links {
+    display: flex;
+    flex-direction: column;
+    gap: 0.625rem;
+  }
+</style>

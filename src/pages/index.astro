@@ -1,0 +1,51 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ThemeToggle from '../components/ThemeToggle.astro';
+import ProfileCard from '../components/ProfileCard.astro';
+import LinkGroup from '../components/LinkGroup.astro';
+import Footer from '../components/Footer.astro';
+import { siteConfig } from '../config/site.config';
+
+// Calculate base index for stagger animation across groups
+let runningIndex = 1; // 0 is for the profile card
+const groupsWithIndex = siteConfig.links.map((group) => {
+  const baseIndex = runningIndex;
+  runningIndex += group.links.length;
+  return { group, baseIndex };
+});
+---
+
+<BaseLayout>
+  <ThemeToggle />
+
+  <div class="animate-fade-up" style="--delay: 0ms">
+    <ProfileCard personal={siteConfig.personal} />
+  </div>
+
+  {groupsWithIndex.map(({ group, baseIndex }) => (
+    <LinkGroup group={group} baseIndex={baseIndex} />
+  ))}
+
+  <Footer footer={siteConfig.footer} />
+</BaseLayout>
+
+<script is:inline>
+  // QR code dialog handling (runs once after page load)
+  document.querySelectorAll('[data-dialog]').forEach(function (btn) {
+    var dialogId = btn.getAttribute('data-dialog');
+    var dialog = document.getElementById(dialogId);
+    if (!dialog) return;
+
+    btn.addEventListener('click', function () {
+      dialog.showModal();
+    });
+
+    dialog.querySelector('.dialog-close').addEventListener('click', function () {
+      dialog.close();
+    });
+
+    dialog.addEventListener('click', function (e) {
+      if (e.target === dialog) dialog.close();
+    });
+  });
+</script>

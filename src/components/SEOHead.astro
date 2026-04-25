@@ -1,0 +1,53 @@
+---
+import type { SEOConfig, PersonalInfo } from '../types/config';
+
+interface Props {
+  seo: SEOConfig;
+  personal: PersonalInfo;
+}
+
+const { seo, personal } = Astro.props;
+
+const title = seo.title;
+const description = seo.description;
+const canonicalURL = seo.canonicalURL || Astro.url.href;
+const ogImage = seo.ogImage ? new URL(seo.ogImage, canonicalURL).href : undefined;
+const locale = seo.locale || 'zh-CN';
+
+const jsonLD = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: personal.name,
+  url: canonicalURL,
+  image: personal.avatar.startsWith('http')
+    ? personal.avatar
+    : new URL(personal.avatar, canonicalURL).href,
+  description: description,
+};
+---
+
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<title>{title}</title>
+<meta name="description" content={description} />
+<meta name="generator" content={Astro.generator} />
+<link rel="canonical" href={canonicalURL} />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+<!-- Open Graph -->
+<meta property="og:type" content="website" />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonicalURL} />
+<meta property="og:locale" content={locale} />
+{ogImage && <meta property="og:image" content={ogImage} />}
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+{ogImage && <meta name="twitter:image" content={ogImage} />}
+
+<!-- Structured Data -->
+<script type="application/ld+json" set:html={JSON.stringify(jsonLD)} />
