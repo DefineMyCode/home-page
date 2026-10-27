@@ -19,7 +19,7 @@ export const siteConfig: SiteConfig = {
         },
         {
           title: 'Gitee',
-          url: 'https://gitee.com/deng-chongshuang',
+          url: 'https://gitee.com/deng-chongshuang_admin',
           icon: 'gitee',
           color: '#FF5722',
         },
